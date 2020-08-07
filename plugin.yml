@@ -1,0 +1,6 @@
+---
+name: ChatRooms
+version: 0.0.1
+main: MHIGists\ChatRooms\Main
+api: 3.14.2
+...
