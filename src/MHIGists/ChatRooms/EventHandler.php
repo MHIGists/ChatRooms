@@ -16,22 +16,28 @@ class EventHandler implements Listener
     {
         $this->main = $main;
     }
-
+    /**
+     * @param PlayerChatEvent $event
+     * @priority HIGH
+     */
     public function chat_event(PlayerChatEvent $event)
     {
         $player = $event->getPlayer();
         $player_chat = $this->main->getPlayerChat($player);
         if ($this->main->getPlayerChat($player) == false) {
-            $this->main->changePlayerChat($player, 'global');
-            $player_chat = "global";
+            $this->main->changePlayerChat($player, $this->main->config['default_chat_room']);
+            $player_chat = $this->main->config['default_chat_room'];
         }
        $event->setRecipients($this->main->chat_rooms[$player_chat]);
-        $prefix = '[' . strtoupper($player_chat) . ']';
+        $prefix = str_replace('<playerChat>', $player_chat, $this->main->config['prefix']);
+
         if ($this->main->pure_chat !== null)
         {
             $pure_chat_format = $this->main->pure_chat->getChatFormat($player, $event->getMessage());
-            $prefix = $this->main->getPrefix($player_chat) . $pure_chat_format;
+            $prefix .=  ' ' . $pure_chat_format;
+            $event->setFormat($prefix);
+            return;
         }
-        $event->setFormat(TextFormat::RED . $prefix . TextFormat::RESET . ' ' . $player->getName() . ' >> ' . $event->getMessage());
+        $event->setFormat($prefix . ' ' . $player->getName() . ' >> ' . $event->getMessage());
     }
 }
