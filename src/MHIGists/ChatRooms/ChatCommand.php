@@ -59,7 +59,7 @@ class ChatCommand extends Command implements PluginIdentifiableCommand
                         break;
                     case 'delete':
                         if (array_key_exists(1, $args)) {
-                            unset($this->main->chat_rooms[$args[1]]);
+                            $this->main->deleteChat($args[1]);
                             $sender->sendMessage('Chat ' . $args[1] . ' has been deleted!');
                         } else {
                             $sender->sendMessage('To delete a chat room use: chatroom delete <chatRoomName>');

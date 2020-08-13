@@ -41,6 +41,12 @@ class Main extends PluginBase{
         $this->chat_rooms[$chat_name] = [];
         $this->chat_rooms[$chat_name][] = new ConsoleCommandSender();
     }
+    public function deleteChat(string $chat_name) : void
+    {
+        unset($this->chat_rooms[$chat_name]);
+        $this->getConfig()->setNested('chatrooms', $this->chat_rooms);
+        $this->getConfig()->save();
+    }
     public function check_duplicates() : void
     {
         foreach ($this->chat_rooms as $key => $chat_room) {

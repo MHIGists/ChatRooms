@@ -1,9 +1,13 @@
 ---
 name: ChatRooms
-version: 0.0.1
+version: 1.0.0
 main: MHIGists\ChatRooms\Main
 api: 3.14.2
 load: POSTWORLD
+description: 'Create different chat rooms for players.'
+commands:
+  chatroom:
+    description: 'Change your chatroom.'
 softdepend:
   - PureChat
 ...
